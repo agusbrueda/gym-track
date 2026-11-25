@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "GYM TRACK - Entrenamiento y progreso",
+  "short_name": "GYM TRACK",
+  "description": "Registro personal de entrenamiento, nutrición y evolución física.",
+  "lang": "es-AR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d1511",
+  "theme_color": "#101a16",
+  "icons": [
+    {"src":"icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"}
+  ]
+}

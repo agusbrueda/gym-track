@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101a16">
+  <meta name="description" content="GYM TRACK: entrenamiento, nutrición y progreso personal.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="GYM TRACK">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>GYM TRACK</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div><div class="brand">GYM <span>TRACK</span></div><div class="tagline">TU PROGRESO, DÍA A DÍA</div></div>
+      <button class="icon-btn" id="backupBtn" aria-label="Exportar copia de seguridad" title="Exportar copia">⇧</button>
+    </header>
+    <main id="appMain">
+      <section class="view active" id="view-home">
+        <div class="welcome"><div><p class="eyebrow" id="todayLabel">TU RESUMEN</p><h1>Hola, <span id="greetingName">atleta</span> 👋</h1><p class="muted">Un paso a la vez. La constancia hace la diferencia.</p></div></div>
+        <div class="stats-grid">
+          <article class="stat-card"><span>Peso actual</span><strong id="homeWeight">—</strong><small id="weightDelta">Registrá tu peso</small></article>
+          <article class="stat-card"><span>Objetivo</span><strong id="homeGoal">—</strong><small>peso objetivo</small></article>
+          <article class="stat-card accent-card"><span>Calorías objetivo</span><strong id="homeCalories">—</strong><small>kcal / día estimadas</small></article>
+          <article class="stat-card"><span>Entrenos esta semana</span><strong id="homeSessions">0</strong><small>sesiones realizadas</small></article>
+        </div>
+        <section class="panel"><div class="section-heading"><div><p class="eyebrow">PLAN SEMANAL</p><h2>Tu semana</h2></div><button class="text-btn" data-go="plan">Editar</button></div><div id="homeWeek" class="week-list"></div></section>
+        <section class="panel"><div class="section-heading"><div><p class="eyebrow">PARA HOY</p><h2 id="todayWorkoutTitle">Tu actividad</h2></div><span class="pill" id="todayWorkoutType">—</span></div><p id="todayWorkoutDesc" class="muted">Configurá tu planificación semanal.</p><button class="primary-btn full" data-go="workout">Registrar actividad</button></section>
+        <section class="panel tip-panel"><p class="eyebrow">RECORDATORIO</p><p>El peso puede variar día a día. Mirá la tendencia de varias semanas y acompañala con medidas corporales y rendimiento.</p></section>
+      </section>
+
+      <section class="view" id="view-profile">
+        <div class="page-heading"><p class="eyebrow">TUS DATOS</p><h1>Mi perfil</h1><p class="muted">Completá tus datos para personalizar las estimaciones.</p></div>
+        <form id="profileForm" class="panel form-grid">
+          <label>Nombre (opcional)<input id="name" type="text" placeholder="Cómo querés que te llamemos"></label>
+          <div class="two-col"><label>Edad<input id="age" type="number" min="15" max="100" placeholder="33" required></label><label>Sexo para fórmula metabólica<select id="sex"><option value="male">Hombre</option><option value="female">Mujer</option></select></label></div>
+          <div class="two-col"><label>Altura (cm)<input id="height" type="number" min="100" max="230" placeholder="180" required></label><label>Peso actual (kg)<input id="weight" type="number" min="35" max="300" step="0.1" placeholder="100" required></label></div>
+          <label>Peso objetivo (kg)<input id="goalWeight" type="number" min="30" max="300" step="0.1" placeholder="85" required></label>
+          <label>Actividad habitual<select id="activity"><option value="1.2">Sedentaria (poco movimiento)</option><option value="1.375">Ligera (1–3 días/semana)</option><option value="1.45" selected>Moderada (3–5 días/semana)</option><option value="1.55">Alta (6 días/semana)</option><option value="1.725">Muy alta (actividad intensa diaria)</option></select></label>
+          <label>Objetivo de déficit<select id="deficit"><option value="0.10">Suave – 10%</option><option value="0.15" selected>Moderado – 15%</option><option value="0.20">Más marcado – 20%</option></select></label>
+          <button class="primary-btn full" type="submit">Guardar perfil y calcular</button>
+        </form>
+        <div class="panel" id="calorieResults"><div class="section-heading"><h2>Tu estimación</h2><span class="pill">Orientativa</span></div><div class="result-grid"><div><span>Metabolismo basal</span><strong id="bmrResult">—</strong><small>kcal/día</small></div><div><span>Mantenimiento</span><strong id="maintResult">—</strong><small>kcal/día</small></div><div class="result-highlight"><span>Objetivo con déficit</span><strong id="targetResult">—</strong><small>kcal/día</small></div></div><p class="fine-print">Estimación inicial mediante Mifflin-St Jeor y un factor de actividad. No es una medición clínica. Ajustá el objetivo según evolución, hambre, energía y orientación profesional. No se deben “comer de vuelta” automáticamente las calorías estimadas del ejercicio.</p></div>
+      </section>
+
+      <section class="view" id="view-plan">
+        <div class="page-heading"><p class="eyebrow">ORGANIZACIÓN FLEXIBLE</p><h1>Mi planificación</h1><p class="muted">Vos elegís qué hacer cada día. Cambiá el plan cuando lo necesites.</p></div>
+        <div class="panel"><div id="planEditor" class="plan-editor"></div><button id="savePlanBtn" class="primary-btn full">Guardar planificación</button></div>
+        <div class="panel"><h2>Tipos de actividad</h2><div class="legend"><span><i class="dot hiit"></i> HIIT</span><span><i class="dot strength"></i> Fuerza</span><span><i class="dot cardio"></i> Cardio</span><span><i class="dot rest"></i> Descanso</span></div><p class="fine-print">La distribución sugerida es editable. Dejá días de recuperación entre sesiones intensas cuando lo necesites.</p></div>
+      </section>
+
+      <section class="view" id="view-workout">
+        <div class="page-heading"><p class="eyebrow">SESIÓN DE HOY O CUANDO QUIERAS</p><h1>Registrar actividad</h1><p class="muted">Registrá lo que realmente hiciste, aunque no estuviera planificado.</p></div>
+        <form id="sessionForm" class="panel form-grid">
+          <label>Fecha<input id="sessionDate" type="date" required></label>
+          <label>Actividad<select id="sessionType"><option>HIIT</option><option>Fuerza</option><option>Cardio</option><option>Movilidad</option><option>Otra actividad</option></select></label>
+          <div class="two-col"><label>Duración (minutos)<input id="sessionDuration" type="number" min="1" max="300" value="45" required></label><label>Intensidad<select id="sessionIntensity"><option value="3.5">Suave</option><option value="5" selected>Moderada</option><option value="7">Intensa</option><option value="9">Muy intensa</option></select></label></div>
+          <div class="estimate-box"><span>Gasto estimado de la sesión</span><strong id="sessionCalories">— kcal</strong><small>Estimación aproximada; puede diferir del gasto real.</small></div>
+          <label>Notas<textarea id="sessionNotes" rows="2" placeholder="Cómo te sentiste, ejercicios, observaciones..."></textarea></label>
+          <button class="primary-btn full" type="submit">Guardar sesión</button>
+        </form>
+        <section class="panel"><div class="section-heading"><h2>Ejercicios de fuerza</h2><span class="pill">Gimnasio básico</span></div><p class="muted">Barra, discos, banco y mancuernas. Agregá tus series y cargas.</p>
+          <form id="exerciseForm" class="form-grid compact-form">
+            <label>Ejercicio<select id="exerciseName"><option>Press de banca</option><option>Sentadilla con barra</option><option>Peso muerto</option><option>Remo con barra</option><option>Press militar</option><option>Remo con mancuerna</option><option>Press inclinado con mancuernas</option><option>Curl de bíceps</option><option>Extensión de tríceps</option><option>Elevaciones laterales</option><option>Estocadas con mancuernas</option><option>Hip thrust</option><option>Gemelos</option><option>Abdominales</option></select></label>
+            <div class="three-col"><label>Series<input id="exerciseSets" type="number" min="1" max="20" value="3"></label><label>Reps<input id="exerciseReps" type="number" min="1" max="100" value="10"></label><label>Kg<input id="exerciseLoad" type="number" min="0" max="1000" step="0.5" value="20"></label></div>
+            <button class="secondary-btn full" type="submit">Agregar ejercicio al registro</button>
+          </form><div id="exerciseLog" class="exercise-log"><p class="muted">Todavía no agregaste ejercicios en esta sesión.</p></div>
+        </section>
+        <section class="panel"><h2>Rutinas orientativas</h2><div class="routine-card"><strong>Fuerza A · Torso</strong><p>Press de banca · Remo con barra · Press militar · Curl de bíceps · Extensión de tríceps.</p><small>Empezá con 2–3 series de 8–12 repeticiones y técnica controlada.</small></div><div class="routine-card"><strong>Fuerza B · Piernas y cadena posterior</strong><p>Sentadilla · Peso muerto rumano · Estocadas · Hip thrust · Gemelos · Abdomen.</p><small>Elegí cargas que puedas controlar. Usá soportes y seguros para la barra.</small></div><div class="routine-card"><strong>HIIT · Intervalos adaptables</strong><p>Calentamiento 5–8 min; luego 6–8 rondas de 30 segundos de esfuerzo y 60–90 segundos suaves; vuelta a la calma.</p><small>Podés hacerlo con bicicleta, caminata rápida en pendiente, cuerda o ejercicios de bajo impacto. No todos los intervalos deben ser máximos.</small></div></section>
+      </section>
+
+      <section class="view" id="view-progress">
+        <div class="page-heading"><p class="eyebrow">DATOS REALES, TENDENCIAS REALES</p><h1>Mi progreso</h1><p class="muted">Registrá el peso en condiciones similares, preferentemente a la misma hora.</p></div>
+        <form id="weightForm" class="panel form-grid"><h2>Registrar peso</h2><div class="two-col"><label>Fecha<input id="weightDate" type="date" required></label><label>Peso (kg)<input id="weightEntry" type="number" step="0.1" min="30" max="300" required></label></div><button class="primary-btn full" type="submit">Guardar peso</button></form>
+        <div class="panel"><div class="section-heading"><h2>Historial de peso</h2><span class="pill" id="weightCount">0 registros</span></div><div id="weightChart" class="chart-empty">Todavía no hay datos suficientes para mostrar tu evolución.</div><div id="weightHistory" class="history-list"></div></div>
+        <form id="measureForm" class="panel form-grid"><h2>Medidas corporales</h2><label>Fecha<input id="measureDate" type="date" required></label><div class="two-col"><label>Cintura (cm)<input id="waist" type="number" step="0.1" min="1"></label><label>Pecho (cm)<input id="chest" type="number" step="0.1" min="1"></label><label>Brazo (cm)<input id="arm" type="number" step="0.1" min="1"></label><label>Pierna/muslo (cm)<input id="leg" type="number" step="0.1" min="1"></label><label>Cadera (cm)<input id="hips" type="number" step="0.1" min="1"></label></div><button class="primary-btn full" type="submit">Guardar medidas</button></form>
+        <div class="panel"><h2>Medidas registradas</h2><div id="measureHistory" class="history-list"><p class="muted">Sin registros todavía.</p></div></div>
+      </section>
+
+      <section class="view" id="view-reports">
+        <div class="page-heading"><p class="eyebrow">SEGUIMIENTO Y CONTROL</p><h1>Informes</h1><p class="muted">Exportá tus registros para guardar, imprimir o analizarlos en una planilla.</p></div>
+        <div class="panel form-grid">
+          <h2>Período del informe</h2>
+          <div class="two-col"><label>Desde<input id="reportFrom" type="date"></label><label>Hasta<input id="reportTo" type="date"></label></div>
+          <p class="fine-print">Dejá las fechas vacías para incluir todo tu historial. El perfil y el plan semanal siempre se incluyen.</p>
+          <button id="pdfReportBtn" class="primary-btn full" type="button">Exportar informe PDF</button>
+          <button id="excelReportBtn" class="secondary-btn full" type="button">Exportar Excel (.xlsx)</button>
+        </div>
+        <div class="panel"><h2>Qué incluye el informe</h2>
+          <div class="report-feature"><strong>Resumen y perfil</strong><p>Peso actual y objetivo, altura, edad, calorías estimadas y planificación semanal.</p></div>
+          <div class="report-feature"><strong>Entrenamientos</strong><p>Fecha, actividad, duración, gasto calórico estimado, notas y ejercicios con series, repeticiones y cargas.</p></div>
+          <div class="report-feature"><strong>Progreso corporal</strong><p>Historial de peso y medidas de cintura, pecho, brazo, pierna y cadera.</p></div>
+          <div class="report-feature"><strong>Nutrición</strong><p>Alimentos registrados, porciones, calorías y proteínas.</p></div>
+          <p class="fine-print">El PDF se prepara para imprimir o guardar como PDF desde el menú de impresión/compartir del iPhone. El Excel contiene hojas separadas para cada tipo de registro.</p>
+        </div>
+      </section>
+
+      <section class="view" id="view-food">
+        <div class="page-heading"><p class="eyebrow">COMIDA REAL Y ACCESIBLE</p><h1>Nutrición</h1><p class="muted">Ideas económicas con alimentos habituales en Tucumán y Argentina.</p></div>
+        <div class="panel"><div class="section-heading"><h2>Tu objetivo diario</h2><span class="pill">Estimado</span></div><div class="nutrition-target"><strong id="foodTarget">—</strong><span>kcal</span></div><p class="fine-print">La meta se calcula desde tu perfil. El registro de alimentos es manual y las calorías dependen de las cantidades y marcas.</p></div>
+        <form id="foodForm" class="panel form-grid"><h2>Registrar comida</h2><label>Alimento / comida<input id="foodName" type="text" placeholder="Ej. 2 huevos y 1 banana" required></label><div class="three-col"><label>Kcal<input id="foodKcal" type="number" min="0" max="5000" placeholder="300" required></label><label>Proteína (g)<input id="foodProtein" type="number" min="0" step="0.1" placeholder="15"></label><label>Porción<input id="foodPortion" type="text" placeholder="1 plato"></label></div><button class="primary-btn full" type="submit">Agregar al día</button></form>
+        <div class="panel"><div class="section-heading"><h2>Consumo registrado</h2><span class="pill" id="foodDateLabel">Hoy</span></div><div class="food-totals"><div><strong id="foodConsumed">0</strong><small>kcal consumidas</small></div><div><strong id="foodProteinTotal">0 g</strong><small>proteínas</small></div><div><strong id="foodRemaining">—</strong><small>kcal restantes</small></div></div><div class="progress-track"><div id="foodProgress" class="progress-fill"></div></div><div id="foodLog" class="history-list"><p class="muted">Todavía no cargaste alimentos.</p></div></div>
+        <div class="panel"><h2>Ideas económicas para armar tus platos</h2><div class="food-idea"><strong>Proteínas accesibles</strong><p>Huevos, pollo (pata-muslo o pechuga según oferta), carne picada, leche, yogur natural y lentejas.</p></div><div class="food-idea"><strong>Carbohidratos rendidores</strong><p>Avena, arroz, papa, batata, fideos, polenta y pan.</p></div><div class="food-idea"><strong>Verduras y frutas de estación</strong><p>Zapallo, zanahoria, acelga, tomate, repollo, banana, naranja y fruta disponible en oferta.</p></div><div class="food-idea"><strong>Ejemplo sencillo de un día</strong><p>Desayuno: avena con leche y banana. Almuerzo: pollo con arroz y ensalada. Merienda: yogur o huevos con fruta. Cena: tortilla de acelga y papa.</p></div><p class="fine-print">Las porciones deben ajustarse a tus calorías, proteínas, presupuesto y preferencias. No hace falta comprar suplementos para empezar.</p></div>
+      </section>
+    </main>
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <button class="nav-item active" data-tab="home"><span>⌂</span><small>Inicio</small></button>
+      <button class="nav-item" data-tab="plan"><span>▦</span><small>Plan</small></button>
+      <button class="nav-item" data-tab="workout"><span>⚒</span><small>Entrenar</small></button>
+      <button class="nav-item" data-tab="progress"><span>↗</span><small>Progreso</small></button>
+      <button class="nav-item" data-tab="food"><span>◉</span><small>Comidas</small></button>
+      <button class="nav-item" data-tab="reports"><span>⇩</span><small>Informes</small></button>
+    </nav>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
