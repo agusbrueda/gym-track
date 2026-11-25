@@ -9,7 +9,7 @@ function localDate(){const d=new Date();return `${d.getFullYear()}-${String(d.ge
 function mondayIndex(){return (new Date().getDay()+6)%7}
 function kcalTarget(){const p=data.profile;if(!p.age||!p.height||!p.weight)return 0;const bmr=10*Number(p.weight)+6.25*Number(p.height)-5*Number(p.age)+(p.sex==='male'?5:-161);return Math.round(bmr*Number(p.activity)*(1-Number(p.deficit)))}
 function maintenance(){const p=data.profile;if(!p.age||!p.height||!p.weight)return 0;return Math.round((10*Number(p.weight)+6.25*Number(p.height)-5*Number(p.age)+(p.sex==='male'?5:-161))*Number(p.activity))}
-function showTab(tab){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===`view-${tab}`));document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));window.scrollTo({top:0,behavior:'smooth'});if(tab==='progress')renderProgress();if(tab==='food')renderFood();if(tab==='supplements')renderSupplements()}
+function showTab(tab){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===`view-${tab}`));document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));window.scrollTo({top:0,behavior:'smooth'});if(tab==='profile')fillProfile();if(tab==='progress')renderProgress();if(tab==='food')renderFood();if(tab==='supplements')renderSupplements()}
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.go)));
 function dayActivity(day){return data.plan[day]||'Descanso'}
