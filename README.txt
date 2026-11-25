@@ -4,7 +4,6 @@ CONTENIDO
 - index.html: estructura de la app
 - styles.css: diseño adaptable a iPhone
 - app.js: funciones y almacenamiento local
-- Informes: exportación a PDF e informe Excel con hojas separadas (requiere conexión para cargar el módulo XLSX la primera vez)
 - manifest.webmanifest: configuración instalable
 - sw.js: caché para funcionamiento sin conexión tras la primera carga
 - icons/: iconos de la aplicación
@@ -17,8 +16,7 @@ PARA PUBLICAR Y USAR EN IPHONE
 
 NOTAS
 - Los datos se guardan en el almacenamiento local del navegador/dispositivo. No se sincronizan automáticamente entre dispositivos.
-- Usá el botón superior para descargar una copia JSON de tus datos.
-- En la pestaña Informes podés exportar el historial filtrado por fechas a PDF o Excel (.xlsx). El PDF se guarda desde la opción Imprimir/Compartir de Safari. Excel requiere conexión a internet para cargar la biblioteca de exportación.
+- Usá el botón de exportación para descargar una copia JSON de tus datos.
 - Para recuperar datos en otro dispositivo todavía hace falta implementar la función de importación.
 - La PWA requiere HTTPS para instalarse correctamente y registrar el service worker.
 - Las calorías de entrenamiento son aproximaciones basadas en MET, duración y peso corporal. No deben tratarse como mediciones exactas.

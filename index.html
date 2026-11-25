@@ -81,22 +81,17 @@
         <div class="panel"><h2>Medidas registradas</h2><div id="measureHistory" class="history-list"><p class="muted">Sin registros todavía.</p></div></div>
       </section>
 
-      <section class="view" id="view-reports">
-        <div class="page-heading"><p class="eyebrow">SEGUIMIENTO Y CONTROL</p><h1>Informes</h1><p class="muted">Exportá tus registros para guardar, imprimir o analizarlos en una planilla.</p></div>
-        <div class="panel form-grid">
-          <h2>Período del informe</h2>
-          <div class="two-col"><label>Desde<input id="reportFrom" type="date"></label><label>Hasta<input id="reportTo" type="date"></label></div>
-          <p class="fine-print">Dejá las fechas vacías para incluir todo tu historial. El perfil y el plan semanal siempre se incluyen.</p>
-          <button id="pdfReportBtn" class="primary-btn full" type="button">Exportar informe PDF</button>
-          <button id="excelReportBtn" class="secondary-btn full" type="button">Exportar Excel (.xlsx)</button>
+
+      <section class="view" id="view-supplements">
+        <div class="page-heading"><p class="eyebrow">CONSTANCIA Y SEGUIMIENTO</p><h1>Suplementos</h1><p class="muted">Marcá cada día si consumiste cada suplemento. El registro no indica dosis ni reemplaza orientación profesional.</p></div>
+        <div class="panel">
+          <div class="section-heading"><div><h2>Registro diario</h2><span class="muted">Elegí la fecha y marcá lo que consumiste.</span></div><span class="pill" id="supplementDateLabel">Hoy</span></div>
+          <label class="supplement-date-label">Fecha del registro<input id="supplementDate" type="date"></label>
+          <div id="supplementChecklist" class="supplement-list"></div>
         </div>
-        <div class="panel"><h2>Qué incluye el informe</h2>
-          <div class="report-feature"><strong>Resumen y perfil</strong><p>Peso actual y objetivo, altura, edad, calorías estimadas y planificación semanal.</p></div>
-          <div class="report-feature"><strong>Entrenamientos</strong><p>Fecha, actividad, duración, gasto calórico estimado, notas y ejercicios con series, repeticiones y cargas.</p></div>
-          <div class="report-feature"><strong>Progreso corporal</strong><p>Historial de peso y medidas de cintura, pecho, brazo, pierna y cadera.</p></div>
-          <div class="report-feature"><strong>Nutrición</strong><p>Alimentos registrados, porciones, calorías y proteínas.</p></div>
-          <p class="fine-print">El PDF se prepara para imprimir o guardar como PDF desde el menú de impresión/compartir del iPhone. El Excel contiene hojas separadas para cada tipo de registro.</p>
-        </div>
+        <div class="panel"><div class="section-heading"><h2>Mi seguimiento</h2><span class="pill">Días registrados</span></div><div id="supplementStats" class="supplement-stats"></div></div>
+        <form id="supplementForm" class="panel form-grid compact-form"><h2>Agregar otro suplemento</h2><label>Nombre<input id="supplementName" type="text" maxlength="40" placeholder="Ej. Omega 3, vitamina D..." required></label><button class="secondary-btn full" type="submit">Agregar a mi lista</button></form>
+        <p class="fine-print">Este registro solo sirve para llevar constancia de consumo. No recomienda iniciar suplementos ni define cantidades o frecuencia.</p>
       </section>
 
       <section class="view" id="view-food">
@@ -113,11 +108,10 @@
       <button class="nav-item" data-tab="workout"><span>⚒</span><small>Entrenar</small></button>
       <button class="nav-item" data-tab="progress"><span>↗</span><small>Progreso</small></button>
       <button class="nav-item" data-tab="food"><span>◉</span><small>Comidas</small></button>
-      <button class="nav-item" data-tab="reports"><span>⇩</span><small>Informes</small></button>
+      <button class="nav-item" data-tab="supplements"><span>＋</span><small>Suples</small></button>
     </nav>
   </div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
